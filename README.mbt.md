@@ -1,4 +1,3 @@
-# username/mooncas
 # MoonCAS
 
 MoonCAS is a small, pure-MoonBit content-addressed storage kernel. It turns
@@ -15,8 +14,8 @@ artifact managers, and reproducible pipelines.
 - Portable SHA-256 implementation with standard test vectors
 - Idempotent `put`, `get`, `has`, and `delete` operations
 - Expected-digest verification for safe imports
-- Reference counting and garbage collection
-- Fixed-size chunk manifests with cross-object deduplication
+- Reference counting, protected deletion, and garbage collection
+- Fixed-size chunk manifests with cross-object deduplication and owned references
 - Tests and CI for the Wasm, Wasm-GC, and JavaScript backends
 
 ## Run

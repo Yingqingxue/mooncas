@@ -17,6 +17,7 @@ pub fn ChunkedBlob::length(self : ChunkedBlob) -> Int {
 
 ///|
 /// Split a blob into fixed-size chunks and store each chunk by digest.
+/// Every chunk is pinned once for the lifetime of the returned manifest.
 pub fn MemoryStore::put_chunked(
   self : MemoryStore,
   data : Bytes,
@@ -26,9 +27,39 @@ pub fn MemoryStore::put_chunked(
   let ids : Array[Digest] = []
   for start = 0; start < data.length(); start = start + size {
     let end = (start + size).min(data.length())
-    ids.push(self.put(data[start:end].to_owned()))
+    let id = self.put(data[start:end].to_owned())
+    ignore(self.pin(id))
+    ids.push(id)
   }
   ChunkedBlob::{ chunks: ids, length: data.length(), }
+}
+
+///|
+/// Add one live reference for every chunk in a manifest.
+pub fn MemoryStore::pin_chunked(
+  self : MemoryStore,
+  manifest : ChunkedBlob,
+) -> Bool {
+  for id in manifest.chunks {
+    if !self.has(id) {
+      return false
+    }
+  }
+  for id in manifest.chunks {
+    ignore(self.pin(id))
+  }
+  true
+}
+
+///|
+/// Release the references owned by a chunk manifest.
+pub fn MemoryStore::unpin_chunked(
+  self : MemoryStore,
+  manifest : ChunkedBlob,
+) -> Unit {
+  for id in manifest.chunks {
+    self.unpin(id)
+  }
 }
 
 ///|

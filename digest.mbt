@@ -1,6 +1,6 @@
 ///|
 /// A SHA-256 content identifier encoded as lowercase hexadecimal.
-pub(all) struct Digest {
+pub struct Digest {
   hex : String
 }
 

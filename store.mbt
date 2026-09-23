@@ -53,10 +53,16 @@ pub fn MemoryStore::verify(self : MemoryStore, id : Digest) -> Bool {
 }
 
 ///|
-pub fn MemoryStore::delete(self : MemoryStore, id : Digest) -> Unit {
+/// Delete an unpinned blob. Returns false when live references still exist.
+pub fn MemoryStore::delete(self : MemoryStore, id : Digest) -> Bool {
   let key = id.to_string()
+  if self.pins.contains(key) {
+    return false
+  }
+  let existed = self.blobs.contains(key)
   self.blobs.remove(key)
   self.pins.remove(key)
+  existed
 }
 
 ///|

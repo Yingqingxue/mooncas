@@ -22,7 +22,7 @@ test "memory store deduplicates equal content" {
     None => false
   }
   inspect(found, content="true")
-  store.delete(first)
+  inspect(store.delete(first), content="true")
   inspect(store.length(), content="0")
 }
 
@@ -61,4 +61,18 @@ test "chunked blobs round-trip and deduplicate repeated chunks" {
     None => false
   }
   inspect(restored, content="true")
+  inspect(store.collect(), content="0")
+  store.unpin_chunked(manifest)
+  inspect(store.collect(), content="1")
+}
+
+///|
+test "pinned blobs reject explicit deletion" {
+  let store = @mooncas.MemoryStore::new()
+  let id = store.put(b"important")
+  inspect(store.pin(id), content="true")
+  inspect(store.delete(id), content="false")
+  inspect(store.has(id), content="true")
+  store.unpin(id)
+  inspect(store.delete(id), content="true")
 }
