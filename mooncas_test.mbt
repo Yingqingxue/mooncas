@@ -48,3 +48,17 @@ test "verified writes reject mismatched content" {
   inspect(store.put_verified(expected, b"expected"), content="true")
   inspect(store.verify(expected), content="true")
 }
+
+///|
+test "chunked blobs round-trip and deduplicate repeated chunks" {
+  let store = @mooncas.MemoryStore::new()
+  let manifest = store.put_chunked(b"abcdabcd", chunk_size=4)
+  inspect(manifest.chunk_count(), content="2")
+  inspect(manifest.length(), content="8")
+  inspect(store.length(), content="1")
+  let restored = match store.get_chunked(manifest) {
+    Some(bytes) => bytes == b"abcdabcd"
+    None => false
+  }
+  inspect(restored, content="true")
+}
