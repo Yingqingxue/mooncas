@@ -19,8 +19,8 @@ repository = ""
 
 license = "Apache-2.0"
 
-keywords = []
+keywords = [ "cas", "storage", "sha256", "deduplication" ]
 
 preferred_target = "wasm"
 
-description = ""
+description = "A portable content-addressed storage kernel for MoonBit"
