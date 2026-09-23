@@ -1,5 +1,5 @@
-// import {
-//   "username/mooncas" @lib,
-// }
+import {
+  "username/mooncas" @cas,
+}
 
 pkgtype(kind: "executable")
