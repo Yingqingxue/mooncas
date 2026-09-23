@@ -9,3 +9,19 @@ test "SHA-256 standard vectors" {
     content="ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
   )
 }
+
+///|
+test "memory store deduplicates equal content" {
+  let store = @mooncas.MemoryStore::new()
+  let first = store.put(b"same payload")
+  let second = store.put(b"same payload")
+  inspect(first.to_string() == second.to_string(), content="true")
+  inspect(store.length(), content="1")
+  let found = match store.get(first) {
+    Some(bytes) => bytes == b"same payload"
+    None => false
+  }
+  inspect(found, content="true")
+  store.delete(first)
+  inspect(store.length(), content="0")
+}
