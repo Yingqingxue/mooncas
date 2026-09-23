@@ -25,3 +25,16 @@ test "memory store deduplicates equal content" {
   store.delete(first)
   inspect(store.length(), content="0")
 }
+
+///|
+test "reference-aware collection keeps pinned blobs" {
+  let store = @mooncas.MemoryStore::new()
+  let live = store.put(b"live")
+  let dead = store.put(b"dead")
+  inspect(store.pin(live), content="true")
+  inspect(store.collect(), content="1")
+  inspect(store.has(live), content="true")
+  inspect(store.has(dead), content="false")
+  store.unpin(live)
+  inspect(store.collect(), content="1")
+}
