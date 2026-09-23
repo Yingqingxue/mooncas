@@ -4,6 +4,7 @@
 
 - **项目名称：** MoonCAS：MoonBit 内容寻址存储内核
 - **参赛者：** Yingqingxue（GitHub ID）
+- **联系方式：** 在报名问卷中填写本人手机号或邮箱
 - **项目方向：** 新生态项目建设 / 通用存储基础库
 - **GitHub：** https://github.com/Yingqingxue/mooncas
 - **项目性质：** 原创项目
