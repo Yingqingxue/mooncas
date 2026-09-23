@@ -38,3 +38,13 @@ test "reference-aware collection keeps pinned blobs" {
   store.unpin(live)
   inspect(store.collect(), content="1")
 }
+
+///|
+test "verified writes reject mismatched content" {
+  let store = @mooncas.MemoryStore::new()
+  let expected = @mooncas.digest(b"expected")
+  inspect(store.put_verified(expected, b"tampered"), content="false")
+  inspect(store.length(), content="0")
+  inspect(store.put_verified(expected, b"expected"), content="true")
+  inspect(store.verify(expected), content="true")
+}

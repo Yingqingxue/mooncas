@@ -19,6 +19,21 @@ pub fn MemoryStore::put(self : MemoryStore, data : Bytes) -> Digest {
 }
 
 ///|
+/// Store data only when it matches an expected digest.
+pub fn MemoryStore::put_verified(
+  self : MemoryStore,
+  expected : Digest,
+  data : Bytes,
+) -> Bool {
+  let actual = digest(data)
+  if actual.to_string() != expected.to_string() {
+    return false
+  }
+  self.blobs.set(expected.to_string(), data)
+  true
+}
+
+///|
 pub fn MemoryStore::get(self : MemoryStore, id : Digest) -> Bytes? {
   self.blobs.get(id.to_string())
 }
@@ -26,6 +41,15 @@ pub fn MemoryStore::get(self : MemoryStore, id : Digest) -> Bytes? {
 ///|
 pub fn MemoryStore::has(self : MemoryStore, id : Digest) -> Bool {
   self.blobs.contains(id.to_string())
+}
+
+///|
+/// Re-hash a stored blob to detect accidental or hostile corruption.
+pub fn MemoryStore::verify(self : MemoryStore, id : Digest) -> Bool {
+  match self.get(id) {
+    Some(data) => digest(data).to_string() == id.to_string()
+    None => false
+  }
 }
 
 ///|
