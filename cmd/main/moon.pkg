@@ -1,5 +1,5 @@
 import {
-  "username/mooncas" @cas,
+  "Yingqingxue/mooncas" @cas,
 }
 
 pkgtype(kind: "executable")

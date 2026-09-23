@@ -31,7 +31,7 @@ moon run cmd/main
 ```mbt check
 ///|
 test {
-  let store = MemoryStore::new()
+  let store = @mooncas.MemoryStore::new()
   let id = store.put(b"hello")
   assert_true(store.has(id))
   assert_true(store.verify(id))

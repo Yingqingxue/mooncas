@@ -9,13 +9,13 @@
 //   "moonbitlang/x@0.4.6",
 // }
 
-name = "username/mooncas"
+name = "Yingqingxue/mooncas"
 
 version = "0.1.0"
 
 readme = "README.mbt.md"
 
-repository = ""
+repository = "https://github.com/Yingqingxue/mooncas"
 
 license = "Apache-2.0"
 

@@ -11,7 +11,10 @@ fn main {
   println("chunks: \{manifest.chunk_count()}")
   println("unique blobs: \{store.length()}")
   match store.get_chunked(manifest) {
-    Some(data) => println("round trip ok: \{data == b\"MoonCAS stores repeated chunks only once.\"}")
+    Some(data) => {
+      let ok = data == b"MoonCAS stores repeated chunks only once."
+      println("round trip ok: \{ok}")
+    }
     None => println("restore failed")
   }
 }
