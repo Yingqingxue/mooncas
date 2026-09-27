@@ -1,0 +1,48 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Yingqingxue/mooncas"
+
+import {
+  "moonbitlang/core/hashmap",
+}
+
+// Values
+pub fn digest(Bytes) -> Digest
+
+// Errors
+
+// Types and methods
+pub struct ChunkedBlob {
+  chunks : Array[Digest]
+  length : Int
+}
+pub fn ChunkedBlob::chunk_count(Self) -> Int
+pub fn ChunkedBlob::length(Self) -> Int
+
+pub struct Digest {
+  hex : String
+}
+pub fn Digest::to_string(Self) -> String
+
+pub struct MemoryStore {
+  blobs : @hashmap.HashMap[String, Bytes]
+  pins : @hashmap.HashMap[String, Int]
+}
+pub fn MemoryStore::collect(Self) -> Int
+pub fn MemoryStore::delete(Self, Digest) -> Bool
+pub fn MemoryStore::get(Self, Digest) -> Bytes?
+pub fn MemoryStore::get_chunked(Self, ChunkedBlob) -> Bytes?
+pub fn MemoryStore::has(Self, Digest) -> Bool
+pub fn MemoryStore::length(Self) -> Int
+pub fn MemoryStore::new() -> Self
+pub fn MemoryStore::pin(Self, Digest) -> Bool
+pub fn MemoryStore::pin_chunked(Self, ChunkedBlob) -> Bool
+pub fn MemoryStore::put(Self, Bytes) -> Digest
+pub fn MemoryStore::put_chunked(Self, Bytes, chunk_size? : Int) -> ChunkedBlob
+pub fn MemoryStore::put_verified(Self, Digest, Bytes) -> Bool
+pub fn MemoryStore::unpin(Self, Digest) -> Unit
+pub fn MemoryStore::unpin_chunked(Self, ChunkedBlob) -> Unit
+pub fn MemoryStore::verify(Self, Digest) -> Bool
+
+// Type aliases
+
+// Traits

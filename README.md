@@ -21,6 +21,7 @@ moon check --deny-warn
 moon build --deny-warn
 moon test --deny-warn
 moon run cmd/main
+moon run examples/basic
 ```
 
 ## 最小使用示例
@@ -38,6 +39,15 @@ assert_true(store.verify(id))
 
 当前版本是内存参考实现，不宣称提供持久化、分布式一致性、加密或并发事务。文件系统原子写入、持久化清单、流式哈希和远端后端属于后续版本。
 
-更多可类型检查的示例见 [README.mbt.md](README.mbt.md)，报名材料见 [PROJECT_PLAN.md](PROJECT_PLAN.md)，版本记录见 [CHANGELOG.md](CHANGELOG.md)。
+## 文档
+
+- [设计说明](docs/design.md)
+- [存储模型与不变量](docs/storage-model.md)
+- [测试说明与覆盖矩阵](docs/testing.md)
+- [可类型检查的示例](README.mbt.md)
+- [项目申报书](PROJECT_PLAN.md)
+- [版本记录](CHANGELOG.md)
+
+完整可执行示例位于 `examples/basic`。GitHub Actions 会检查格式、编译、三个后端的测试，并实际运行该示例。
 
 Apache-2.0 licensed.
