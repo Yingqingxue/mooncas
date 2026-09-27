@@ -12,7 +12,13 @@ MoonCAS 是纯 MoonBit 实现的内容寻址存储内核。它用 SHA-256 摘要
 
 ## 安装与运行
 
-当前可从源码运行；发布 Mooncakes 后可使用 `moon add Yingqingxue/mooncas`。
+已发布至 [mooncakes.io](https://mooncakes.io/docs/Yingqingxue/mooncas/)，可直接安装：
+
+```bash
+moon add Yingqingxue/mooncas
+```
+
+也可以从源码运行：
 
 ```bash
 git clone https://github.com/Yingqingxue/mooncas.git
